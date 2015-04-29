@@ -11,48 +11,37 @@ static const int arr[] = {2,3,5,7,11,13,17,19,23,31,37,41,43,47,53,59,61,67,71,7
 vector<int> prime (arr, arr + sizeof(arr) / sizeof(arr[0]));
 
 //a[X][Y]
-//En X el factor
-//En Y el contador
+//En Y = 0 el factor
+//En Y = 1 el contador
 void solution(vector<SuperInt> n, int ini, int fi) {
-  vector<vector<int> > a;
+  vector<int> repeticiones (prime.size(), 0);
   
   for (int k = ini; k < fi; ++k){
+    SuperInt m = n[k];
     int i = 0;
     while (i < prime.size()){
-      while (n[k]%prime[i] == 0){
-	cout << "Number: " << prime[i] << endl;
-	cout << "Before N: " << n[k] << endl;
-	n[k] /= prime[i];
-	cout << "After N: " << n[k] << endl;
-	
-	bool found = false;
-	int j = 0;
-	for (j = 0; j < a.size(); ++j){
-	  cout << "Buscandolo... " << j << endl;
-	  if (a[j][0] == prime[i]) {
-	    cout << "Encontrado...!" << endl;
-	    a[j][1] = a[j][1] + 1;
-	    found = true;
-	  }
-	}
-	if (!found) {
-	cout << "NOT FOUND" << endl;
-	  vector<int> row;
-	  row.push_back(prime[i]);
-	  row.push_back(1);
-	  a.push_back(row);
-	}
+      while (m%prime[i] == 0){
+	m /= prime[i];
+	++repeticiones[i];
       }
       ++i;
     }
   }
-  cout << "Solucion" << endl;
-  for (int j = 0; j < a.size(); ++j){
-    for (int k = 0; k < a[j].size(); ++k){
-      cout << a[j][k] << " ";
+  
+  int max_rep = -1;
+  for (int j = 0; j < repeticiones.size(); ++j){
+    if (repeticiones[j] > max_rep){
+      max_rep = repeticiones[j];
     }
-    cout << endl;
   }
+  
+  cout << max_rep << " ";
+  for (int j = 0; j < repeticiones.size(); ++j){
+    if (repeticiones[j] == max_rep){
+      cout << prime[j] << " ";
+    }
+  }
+  cout << endl;
 }
 
 int main(){
