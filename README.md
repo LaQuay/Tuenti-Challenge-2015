@@ -1,4 +1,4 @@
-# Tuenti-Challenge-2015
+# Tuenti Challenge 2015
 
 ![Logo](https://contest.tuenti.net/resources/logo.png)
 
